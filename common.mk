@@ -706,7 +706,8 @@ st.$(OBJEXT): {$(VPATH)}st.c $(RUBY_H_INCLUDES)
 strftime.$(OBJEXT): {$(VPATH)}strftime.c $(RUBY_H_INCLUDES) \
   {$(VPATH)}timev.h
 string.$(OBJEXT): {$(VPATH)}string.c $(RUBY_H_INCLUDES) {$(VPATH)}re.h \
-  {$(VPATH)}regex.h $(ENCODING_H_INCLUDES) {$(VPATH)}internal.h
+  {$(VPATH)}regex.h $(ENCODING_H_INCLUDES) {$(VPATH)}internal.h \
+  {$(VPATH)}eval_intern.h $(VM_CORE_H_INCLUDES)
 struct.$(OBJEXT): {$(VPATH)}struct.c $(RUBY_H_INCLUDES) {$(VPATH)}internal.h
 thread.$(OBJEXT): {$(VPATH)}thread.c {$(VPATH)}eval_intern.h \
   $(RUBY_H_INCLUDES) {$(VPATH)}gc.h $(VM_CORE_H_INCLUDES) \

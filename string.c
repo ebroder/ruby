@@ -14,6 +14,7 @@
 #include "ruby/ruby.h"
 #include "ruby/re.h"
 #include "ruby/encoding.h"
+#include "eval_intern.h"
 #include "internal.h"
 #include <assert.h>
 
@@ -7537,7 +7538,8 @@ sym_to_proc(VALUE sym)
 {
     static VALUE sym_proc_cache = Qfalse;
     enum {SYM_PROC_CACHE_SIZE = 67};
-    VALUE proc;
+    VALUE procval;
+    rb_proc_t *proc;
     long id, index;
     VALUE *aryp;
 
@@ -7555,10 +7557,12 @@ sym_to_proc(VALUE sym)
 	return aryp[index + 1];
     }
     else {
-	proc = rb_proc_new(sym_call, (VALUE)id);
+	procval = rb_proc_new(sym_call, (VALUE)id);
+	GetProcPtr(procval, proc);
+	proc->envval = NULL;
 	aryp[index] = sym;
-	aryp[index + 1] = proc;
-	return proc;
+	aryp[index + 1] = procval;
+	return procval;
     }
 }
 
